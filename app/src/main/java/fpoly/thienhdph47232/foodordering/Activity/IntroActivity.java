@@ -1,5 +1,7 @@
 package fpoly.thienhdph47232.foodordering.Activity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,16 +22,21 @@ public class IntroActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         binding = ActivityIntroBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_intro);
+        setContentView(binding.getRoot());
         setVariable();
+
+        getWindow().setStatusBarColor(Color.parseColor("#FFE4B5"));
+
     }
     public void setVariable(){
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+        binding.btnLogin.setOnClickListener(v -> {
+            if (mAuth.getCurrentUser() != null){
+                startActivity(new Intent(IntroActivity.this, MainActivity.class));
+            } else {
+                startActivity(new Intent(IntroActivity.this, LoginActivity.class));
             }
         });
+        binding.btnSignUp.setOnClickListener(v -> startActivity(new Intent(IntroActivity.this, SignUpActivity.class)));
 
     }
 }
