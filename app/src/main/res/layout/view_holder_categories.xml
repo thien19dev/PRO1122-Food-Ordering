@@ -17,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imgCat"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center"
             android:padding="12dp"
-            android:src="@tools:sample/avatars" />
+            app:srcCompat="@drawable/btn_1" />
 
         <TextView
             android:id="@+id/catNameTxt"

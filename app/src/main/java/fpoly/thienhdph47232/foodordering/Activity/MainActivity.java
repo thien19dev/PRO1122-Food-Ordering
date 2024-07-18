@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import fpoly.thienhdph47232.foodordering.Adapter.BestFoodAdapter;
+import fpoly.thienhdph47232.foodordering.Adapter.CategoryAdapter;
+import fpoly.thienhdph47232.foodordering.Domain.Categories;
 import fpoly.thienhdph47232.foodordering.Domain.Foods;
 import fpoly.thienhdph47232.foodordering.Domain.Location;
 import fpoly.thienhdph47232.foodordering.Domain.Price;
@@ -43,11 +46,39 @@ public class MainActivity extends BaseActivity {
         initTime();
         initPrice();
         initBestFood();
+        initCategories();
+    }
+
+    private void initCategories() {
+        DatabaseReference myRef = database.getReference("Category");
+        binding.progressBar.setVisibility(View.VISIBLE);
+        ArrayList<Categories> list = new ArrayList<>();
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot issue : snapshot.getChildren()){
+                        list.add(issue.getValue(Categories.class));
+                    }
+                    if (list.size() > 0){
+                        binding.categoriesFoodrc.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
+                        RecyclerView.Adapter adapter = new CategoryAdapter(list);
+                        binding.categoriesFoodrc.setAdapter(adapter);
+                    }
+                    binding.progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void initBestFood() {
         DatabaseReference myRef = database.getReference("Foods");
-        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.progressBarCategories.setVisibility(View.VISIBLE);
         ArrayList<Foods> list = new ArrayList<>();
         Query query = myRef.orderByChild("BestFood").equalTo(true);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -62,7 +93,7 @@ public class MainActivity extends BaseActivity {
                         RecyclerView.Adapter adapter = new BestFoodAdapter(list);
                         binding.rcBestFood.setAdapter(adapter);
                     }
-                    binding.progressBar.setVisibility(View.GONE);
+                    binding.progressBarCategories.setVisibility(View.GONE);
                 }
             }
 
