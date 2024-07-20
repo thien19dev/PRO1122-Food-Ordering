@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import fpoly.thienhdph47232.foodordering.Adapter.FoodListAdapter;
 import fpoly.thienhdph47232.foodordering.Domain.Foods;
 import fpoly.thienhdph47232.foodordering.R;
 import fpoly.thienhdph47232.foodordering.databinding.ActivityListFoodBinding;
@@ -66,8 +67,10 @@ public class ListFoodActivity extends BaseActivity {
                     }
                     if (list.size()>0){
                         binding.foodListView.setLayoutManager(new GridLayoutManager(ListFoodActivity.this, 2));
-                        adapterFoodListView = new Food
+                        adapterFoodListView = new FoodListAdapter(list);
+                        binding.foodListView.setAdapter(adapterFoodListView);
                     }
+                    binding.progressBarFoods.setVisibility(View.GONE);
                 }
             }
 
@@ -86,12 +89,7 @@ public class ListFoodActivity extends BaseActivity {
         isSearch = getIntent().getBooleanExtra("isSearch", false);
 
         binding.titleTxt.setText(categoryName);
-        binding.backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        binding.backBtn.setOnClickListener(v -> finish());
 
     }
 }

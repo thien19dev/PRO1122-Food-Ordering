@@ -20,10 +20,6 @@ public class Foods {
 
     @Override
     public String toString() {
-//        return "Foods{" +
-//                "Title='" + Title + '\'' +
-//                '}';
-
         return Title;
     }
 

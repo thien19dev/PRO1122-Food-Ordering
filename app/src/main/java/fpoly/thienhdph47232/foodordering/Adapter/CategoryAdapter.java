@@ -3,6 +3,7 @@ package fpoly.thienhdph47232.foodordering.Adapter;
 import static fpoly.thienhdph47232.foodordering.R.drawable.cat_3_background;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import java.util.ArrayList;
 
+import fpoly.thienhdph47232.foodordering.Activity.ListFoodActivity;
 import fpoly.thienhdph47232.foodordering.Domain.Categories;
 import fpoly.thienhdph47232.foodordering.Domain.Foods;
 import fpoly.thienhdph47232.foodordering.R;
@@ -85,6 +87,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewHo
                 .load(drawableResourceId)
                 .into(holder.imgCat);
 
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ListFoodActivity.class);
+            intent.putExtra("CategoryId", items.get(position).getId());
+            intent.putExtra("CategoryName", items.get(position).getName());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -100,7 +108,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewHo
             super(itemView);
             imgCat = itemView.findViewById(R.id.imgCat);
             catNameTxt = itemView.findViewById(R.id.catNameTxt);
-
         }
     }
 }
