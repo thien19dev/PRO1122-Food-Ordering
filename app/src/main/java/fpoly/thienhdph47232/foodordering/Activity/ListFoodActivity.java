@@ -45,6 +45,10 @@ public class ListFoodActivity extends BaseActivity {
 
         getIntentExtra();
         initList();
+        setVariable();
+    }
+
+    private void setVariable() {
     }
 
     private void initList() {
@@ -84,11 +88,11 @@ public class ListFoodActivity extends BaseActivity {
 
     private void getIntentExtra() {
         categoryId = getIntent().getIntExtra("CategoryId", 0);
-        categoryName = getIntent().getStringExtra("Category");
+        categoryName = getIntent().getStringExtra("CategoryName");
         searchText = getIntent().getStringExtra("text");
         isSearch = getIntent().getBooleanExtra("isSearch", false);
 
-        binding.titleTxt.setText(categoryName);
+        binding.titleCategoryTxt.setText(categoryName);
         binding.backBtn.setOnClickListener(v -> finish());
 
     }

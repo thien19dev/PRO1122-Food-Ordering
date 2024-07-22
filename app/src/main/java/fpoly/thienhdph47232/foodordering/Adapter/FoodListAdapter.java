@@ -38,10 +38,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
     @Override
     public void onBindViewHolder(@NonNull FoodListAdapter.viewholder holder, int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
-        holder.timeTxt.setText(String.valueOf(items.get(position).getTimeValue()));
+        holder.timeTxt.setText(items.get(position).getTimeValue() + " Phút");
 //        holder.priceTxt.setText(String.valueOf(items.get(position).getPrice()));
 //        holder.rateTxt.setText(String.valueOf(items.get(position).getStar()));
-        holder.priceTxt.setText(items.get(position).getPrice() + "VND");
+        holder.priceTxt.setText(items.get(position).getPrice() + " VND");
         holder.rateTxt.setText("" + items.get(position).getStar());
 
 

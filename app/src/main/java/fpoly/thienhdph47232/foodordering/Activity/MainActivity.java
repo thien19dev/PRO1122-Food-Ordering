@@ -1,8 +1,10 @@
 package fpoly.thienhdph47232.foodordering.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +50,36 @@ public class MainActivity extends BaseActivity {
         initPrice();
         initBestFood();
         initCategories();
+        setVariable();
+    }
+
+    private void setVariable() {
+        binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                Toast.makeText(MainActivity.this, "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.searchEdtMainActivity.setOnClickListener(v -> {
+            String text = binding.searchEdtMainActivity.getText().toString();
+            if (!text.isEmpty()){
+                Intent intent = new Intent(MainActivity.this,ListFoodActivity.class);
+                intent.putExtra("text", text);
+                intent.putExtra("isSearch", true);
+                startActivity(intent);
+                binding.searchEdtMainActivity.setText("");
+            }
+        });
+
+        binding.searchEdtMainActivity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+            }
+        });
     }
 
     private void initCategories() {
