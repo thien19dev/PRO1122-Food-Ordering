@@ -74,12 +74,11 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        binding.searchEdtMainActivity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-
-            }
+        binding.cartBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(intent);
         });
+
     }
 
     private void initCategories() {

@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import fpoly.thienhdph47232.foodordering.Adapter.CartAdapter;
+import fpoly.thienhdph47232.foodordering.Helper.ChangeNumberItemsListener;
 import fpoly.thienhdph47232.foodordering.Helper.ManagmentCart;
 import fpoly.thienhdph47232.foodordering.R;
 import fpoly.thienhdph47232.foodordering.databinding.ActivityCartBinding;
@@ -44,9 +46,10 @@ public class CartActivity extends AppCompatActivity {
             binding.scrollviewCart.setVisibility(View.VISIBLE);
         }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.cartRec.setLayoutManager(linearLayoutManager);
-        adapter = new CartAdapter(managmentCart.getListCart());
+        adapter = new CartAdapter(managmentCart.getListCart(), this, () -> caculataCart());
+
         binding.cartRec.setAdapter(adapter);
     }
 
