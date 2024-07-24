@@ -1,6 +1,8 @@
 package fpoly.thienhdph47232.foodordering.Domain;
 
-public class Foods {
+import java.io.Serializable;
+
+public class Foods implements Serializable {
     private int CategoryID;
     private String Description;
     private Boolean BestFood;

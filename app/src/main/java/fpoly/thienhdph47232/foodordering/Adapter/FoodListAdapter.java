@@ -1,6 +1,7 @@
 package fpoly.thienhdph47232.foodordering.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import java.util.ArrayList;
 
+import fpoly.thienhdph47232.foodordering.Activity.DetailFoodActivity;
 import fpoly.thienhdph47232.foodordering.Domain.Foods;
 import fpoly.thienhdph47232.foodordering.R;
 
@@ -49,6 +51,15 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
                 .load(items.get(position).getImagePath())
                 .transform(new CenterCrop(), new RoundedCorners(30))
                 .into(holder.pic);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailFoodActivity.class);
+                intent.putExtra("object", items.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
